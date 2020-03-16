@@ -23,8 +23,8 @@ namespace Web.Services
         public async Task<PublishingComapnyViewModel> AddAsync(PublishingCompanyInputModel publishingCompanyInputModel)
         {
             var publishingComapny = mapper.Map<PublishingCompany>(publishingCompanyInputModel);
-            var hoge = await repository.AddAsync(publishingComapny);
-            var publishingCompanyViewModel = mapper.Map<PublishingComapnyViewModel>(hoge);
+            var result = await repository.AddAsync(publishingComapny);
+            var publishingCompanyViewModel = mapper.Map<PublishingComapnyViewModel>(result);
             return publishingCompanyViewModel;
         }
 

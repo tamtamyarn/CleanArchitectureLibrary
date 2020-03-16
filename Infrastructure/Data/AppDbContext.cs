@@ -9,6 +9,7 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<PublishingCompany> publishingCompanies { get; set; }
+        public DbSet<PublishingCompany> PublishingCompanies { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

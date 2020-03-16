@@ -26,6 +26,8 @@ namespace Web
         {
             services.AddScoped<IPublishingCompanyRepository, PublishingCompanyRepository>();
             services.AddScoped<IPublishingCompanyService, PublishingCompanyService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddControllers();

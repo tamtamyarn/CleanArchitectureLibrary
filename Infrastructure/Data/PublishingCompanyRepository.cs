@@ -17,30 +17,30 @@ namespace Infrastructure.Data
 
         public async Task<PublishingCompany> AddAsync(PublishingCompany publishingCompany)
         {
-            context.publishingCompanies.Add(publishingCompany);
+            context.PublishingCompanies.Add(publishingCompany);
             await context.SaveChangesAsync();
             return publishingCompany;
         }
 
         public async Task DeleteAsync(PublishingCompany publishingCompany)
         {
-            context.publishingCompanies.Remove(publishingCompany);
+            context.PublishingCompanies.Remove(publishingCompany);
             await context.SaveChangesAsync();
         }
 
         public async Task<PublishingCompany> GetAsync(int id)
         {
-            return await context.publishingCompanies.FindAsync(id);
+            return await context.PublishingCompanies.FindAsync(id);
         }
 
         public async Task<List<PublishingCompany>> ListAsync()
         {
-            return await context.publishingCompanies.ToListAsync();
+            return await context.PublishingCompanies.ToListAsync();
         }
 
         public async Task UpdateAsync(PublishingCompany publishingCompany)
         {
-            context.publishingCompanies.Update(publishingCompany);
+            context.PublishingCompanies.Update(publishingCompany);
             await context.SaveChangesAsync();
         }
     }

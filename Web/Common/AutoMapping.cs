@@ -15,6 +15,8 @@ namespace Web.Common
         {
             CreateMap<PublishingCompany, PublishingComapnyViewModel>();
             CreateMap<PublishingCompanyInputModel, PublishingCompany>();
+            CreateMap<Book, BookViewModel>();
+            CreateMap<BookInputModel, Book>();
         }
     }
 }
