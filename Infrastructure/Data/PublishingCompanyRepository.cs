@@ -30,7 +30,7 @@ namespace Infrastructure.Data
 
         public async Task<PublishingCompany> GetAsync(int id)
         {
-            return await context.publishingCompanies.FindAsync(id); 
+            return await context.publishingCompanies.FindAsync(id);
         }
 
         public async Task<List<PublishingCompany>> ListAsync()

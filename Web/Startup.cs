@@ -30,6 +30,7 @@ namespace Web
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+            services.AddOpenApiDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +46,9 @@ namespace Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {

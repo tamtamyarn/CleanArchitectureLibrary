@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities;
+using Web.InputModels;
 using Web.ViewModels;
 
 namespace Web.Common
@@ -13,6 +14,7 @@ namespace Web.Common
         public AutoMapping()
         {
             CreateMap<PublishingCompany, PublishingComapnyViewModel>();
+            CreateMap<PublishingCompanyInputModel, PublishingCompany>();
         }
     }
 }
