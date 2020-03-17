@@ -12,5 +12,7 @@ namespace Web.Interfaces
         Task<BookViewModel> GetAsync(int id);
         Task<List<BookViewModel>> ListAsync();
         Task<BookViewModel> AddAsync(BookInputModel bookInputModel);
+        Task UpdateAsync(int id, BookInputModel bookInputModel);
+        Task DeleteAsync(int id);
     }
 }

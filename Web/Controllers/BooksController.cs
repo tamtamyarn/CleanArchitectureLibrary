@@ -34,5 +34,19 @@ namespace Web.Controllers
         {
             return Ok(await service.AddAsync(bookInputModel));
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, BookInputModel bookInputModel)
+        {
+            await service.UpdateAsync(id, bookInputModel);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await service.DeleteAsync(id);
+            return NoContent();
+        }
     }
 }

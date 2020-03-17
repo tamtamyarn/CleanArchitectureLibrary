@@ -33,6 +33,14 @@ namespace Web.Services
             return bookViewModel;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            //var publicshingCompany = await repository.GetAsync(id);
+            //await repository.DeleteAsync(publicshingCompany);
+            var book = await repository.GetAsync(id);
+            await repository.DeleteAsync(book);
+        }
+
         public async Task<BookViewModel> GetAsync(int id)
         {
             var book = await repository.GetAsync(id);
@@ -45,6 +53,14 @@ namespace Web.Services
             var books = await repository.ListAsync();
             var booksViewModel = mapper.Map<List<BookViewModel>>(books);
             return booksViewModel;
+        }
+
+        public async Task UpdateAsync(int id, BookInputModel bookInputModel)
+        {
+            var book = mapper.Map<Book>(bookInputModel);
+            book.BookId = id;
+            book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
+            await repository.UpdateAsync(book);
         }
     }
 }

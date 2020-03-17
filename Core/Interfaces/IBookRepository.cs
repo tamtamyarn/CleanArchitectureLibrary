@@ -9,5 +9,7 @@ namespace Core.Interfaces
         Task<Book> GetAsync(int id);
         Task<List<Book>> ListAsync();
         Task<Book> AddAsync(Book book);
+        Task UpdateAsync(Book book);
+        Task DeleteAsync(Book book);
     }
 }

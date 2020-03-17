@@ -24,14 +24,28 @@ namespace Infrastructure.Data
             return book;
         }
 
+        public async Task DeleteAsync(Book book)
+        {
+            //context.PublishingCompanies.Remove(publishingCompany);
+            //await context.SaveChangesAsync();
+            context.Books.Remove(book);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<Book> GetAsync(int id)
         {
-            return await context.Books.Include(b => b.PublishingCompany).SingleOrDefaultAsync(b => b.PublishingCompany.PublishingCompanyId == id);
+            return await context.Books.Include(b => b.PublishingCompany).SingleOrDefaultAsync(b => b.BookId == id);
         }
 
         public async Task<List<Book>> ListAsync()
         {
             return await context.Books.Include(b => b.PublishingCompany).ToListAsync();
+        }
+
+        public async Task UpdateAsync(Book book)
+        {
+            context.Books.Update(book);
+            await context.SaveChangesAsync();
         }
     }
 }
