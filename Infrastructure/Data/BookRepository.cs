@@ -26,8 +26,6 @@ namespace Infrastructure.Data
 
         public async Task DeleteAsync(Book book)
         {
-            //context.PublishingCompanies.Remove(publishingCompany);
-            //await context.SaveChangesAsync();
             context.Books.Remove(book);
             await context.SaveChangesAsync();
         }
