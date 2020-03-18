@@ -24,25 +24,24 @@ namespace Web.Services
 
         public async Task<AuthorViewModel> AddAsync(AuthorInputModel authorInputModel)
         {
-            //var publishingComapny = mapper.Map<PublishingCompany>(publishingCompanyInputModel);
-            //var result = await repository.AddAsync(publishingComapny);
-            //var publishingCompanyViewModel = mapper.Map<PublishingComapnyViewModel>(result);
-            //return publishingCompanyViewModel;
-
             var author = mapper.Map<Author>(authorInputModel);
             var result = await repository.AddAsync(author);
             var authorViewModel = mapper.Map<AuthorViewModel>(result);
             return authorViewModel;
         }
 
-        public Task<AuthorViewModel> GetAsync(int id)
+        public async Task<AuthorViewModel> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var author = await repository.GetAsync(id);
+            var authorViewModel = mapper.Map<AuthorViewModel>(author);
+            return authorViewModel;
         }
 
-        public Task<List<AuthorViewModel>> ListAsync()
+        public async Task<List<AuthorViewModel>> ListAsync()
         {
-            throw new NotImplementedException();
+            var authors = await repository.ListAsync();
+            var authorsViewModel = mapper.Map<List<AuthorViewModel>>(authors);
+            return authorsViewModel;
         }
     }
 }
