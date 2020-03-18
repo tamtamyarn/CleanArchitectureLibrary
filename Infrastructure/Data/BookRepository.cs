@@ -32,12 +32,18 @@ namespace Infrastructure.Data
 
         public async Task<Book> GetAsync(int id)
         {
-            return await context.Books.Include(b => b.PublishingCompany).SingleOrDefaultAsync(b => b.BookId == id);
+            return await context.Books
+                .Include(b => b.PublishingCompany)
+                .Include(b => b.AuthorsLink).ThenInclude(b => b.Author)
+                .SingleOrDefaultAsync(b => b.BookId == id);
         }
 
         public async Task<List<Book>> ListAsync()
         {
-            return await context.Books.Include(b => b.PublishingCompany).ToListAsync();
+            return await context.Books
+                .Include(b => b.PublishingCompany)
+                .Include(b => b.AuthorsLink).ThenInclude(b => b.Author)
+                .ToListAsync();
         }
 
         public async Task UpdateAsync(Book book)

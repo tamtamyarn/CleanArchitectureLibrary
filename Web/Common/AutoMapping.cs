@@ -15,7 +15,7 @@ namespace Web.Common
         {
             CreateMap<PublishingCompany, PublishingComapnyViewModel>();
             CreateMap<PublishingCompanyInputModel, PublishingCompany>();
-            CreateMap<Book, BookViewModel>();
+            CreateMap<Book, BookViewModel>().ForMember(d => d.Authors, o => o.MapFrom(s => s.AuthorsLink.Select(a => a.Author)));
             CreateMap<BookInputModel, Book>();
             CreateMap<Author, AuthorViewModel>();
             CreateMap<AuthorInputModel, Author>();

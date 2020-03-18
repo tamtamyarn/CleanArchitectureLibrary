@@ -16,18 +16,21 @@ namespace Web.Services
         private readonly IMapper mapper;
         private readonly IBookRepository repository;
         private readonly IPublishingCompanyRepository publishingCompanyRepository;
+        private readonly IAuthorRepository authorRepository;
 
-        public BookService(IMapper mapper, IBookRepository repository, IPublishingCompanyRepository publishingCompanyRepository)
+        public BookService(IMapper mapper, IBookRepository repository, IPublishingCompanyRepository publishingCompanyRepository, IAuthorRepository authorRepository)
         {
             this.mapper = mapper;
             this.repository = repository;
             this.publishingCompanyRepository = publishingCompanyRepository;
+            this.authorRepository = authorRepository;
         }
 
         public async Task<BookViewModel> AddAsync(BookInputModel bookInputModel)
         {
             var book = mapper.Map<Book>(bookInputModel);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
+            book.AuthorsLink = new List<BookAuthor> { new BookAuthor { Book = book, Author = await authorRepository.GetAsync(bookInputModel.AuthorId) } };
             var result = await repository.AddAsync(book);
             var bookViewModel = mapper.Map<BookViewModel>(result);
             return bookViewModel;
