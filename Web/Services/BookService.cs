@@ -30,21 +30,31 @@ namespace Web.Services
         {
             var book = mapper.Map<Book>(bookInputModel);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
-            
+
+            /*
             var authors = new List<Author>();
 
             foreach (var authorId in bookInputModel.AuthorIds)
             {
                 authors.Add(await authorRepository.GetAsync(authorId));
             }
+            */
 
+            var authors = await Task.WhenAll(bookInputModel.AuthorIds.Select(async a => await authorRepository.GetAsync(a)));
+
+            /*
             book.AuthorsLink = new List<BookAuthor>();
 
             foreach (var author in authors)
             {
                 book.AuthorsLink.Add(new BookAuthor() { Book = book, Author = author });
             }
-            
+            */
+
+            //book.AuthorsLink = new List<BookAuthor> { new BookAuthor { Book = book, Author = authors[0]} };
+            book.AuthorsLink = new List<BookAuthor>();
+            book.AuthorsLink.AddRange(authors.Select(a => new BookAuthor { Book = book, Author = a }));
+
             var result = await repository.AddAsync(book);
             var bookViewModel = mapper.Map<BookViewModel>(result);
             return bookViewModel;
@@ -75,20 +85,27 @@ namespace Web.Services
             var book = await repository.GetAsync(id);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
 
+            /*
             var authors = new List<Author>();
 
             foreach (var authorId in bookInputModel.AuthorIds)
             {
                 authors.Add(await authorRepository.GetAsync(authorId));
             }
+            */
 
+            var authors = await Task.WhenAll(bookInputModel.AuthorIds.Select(async a => await authorRepository.GetAsync(a)));
+
+            /*
             var authorsLink = new List<BookAuthor>();
 
             foreach (var author in authors)
             {
                 authorsLink.Add(new BookAuthor() { Book = book, Author = author });
             }
-            
+            */
+            var authorsLink = new List<BookAuthor>();
+            authorsLink.AddRange(authors.Select(a => new BookAuthor { Book = book, Author = a }));
 
             book.AuthorsLink = authorsLink;
 
