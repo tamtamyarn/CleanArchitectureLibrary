@@ -32,7 +32,9 @@ namespace Infrastructure.Data
 
         public async Task<Author> GetAsync(int id)
         {
-            return await context.Authors.AsNoTracking().SingleOrDefaultAsync(a => a.AuthorId == id);
+            return await context.Authors
+                //.AsNoTracking()
+                .SingleOrDefaultAsync(a => a.AuthorId == id);
         }
 
         public async Task<List<Author>> ListAsync()

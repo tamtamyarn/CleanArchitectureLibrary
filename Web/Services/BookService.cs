@@ -30,7 +30,21 @@ namespace Web.Services
         {
             var book = mapper.Map<Book>(bookInputModel);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
-            book.AuthorsLink = new List<BookAuthor> { new BookAuthor { Book = book, Author = await authorRepository.GetAsync(bookInputModel.AuthorId) } };
+            
+            var authors = new List<Author>();
+
+            foreach (var authorId in bookInputModel.AuthorIds)
+            {
+                authors.Add(await authorRepository.GetAsync(authorId));
+            }
+
+            book.AuthorsLink = new List<BookAuthor>();
+
+            foreach (var author in authors)
+            {
+                book.AuthorsLink.Add(new BookAuthor() { Book = book, Author = author });
+            }
+            
             var result = await repository.AddAsync(book);
             var bookViewModel = mapper.Map<BookViewModel>(result);
             return bookViewModel;
@@ -60,9 +74,26 @@ namespace Web.Services
 
         public async Task UpdateAsync(int id, BookInputModel bookInputModel)
         {
-            var book = mapper.Map<Book>(bookInputModel);
-            book.BookId = id;
+            var book = await repository.GetAsync(id);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
+
+
+            var authors = new List<Author>();
+
+            foreach (var authorId in bookInputModel.AuthorIds)
+            {
+                authors.Add(await authorRepository.GetAsync(authorId));
+            }
+
+            var authorsLink = new List<BookAuthor>();
+
+            foreach (var author in authors)
+            {
+                authorsLink.Add(new BookAuthor() { Book = book, Author = author });
+            }
+
+            book.AuthorsLink = authorsLink;
+
             await repository.UpdateAsync(book);
         }
     }

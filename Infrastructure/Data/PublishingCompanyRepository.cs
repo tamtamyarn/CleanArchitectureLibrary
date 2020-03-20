@@ -30,7 +30,9 @@ namespace Infrastructure.Data
 
         public async Task<PublishingCompany> GetAsync(int id)
         {
-            return await context.PublishingCompanies.AsNoTracking().SingleOrDefaultAsync(p => p.PublishingCompanyId == id);
+            return await context.PublishingCompanies
+                //.AsNoTracking()
+                .SingleOrDefaultAsync(p => p.PublishingCompanyId == id);
         }
 
         public async Task<List<PublishingCompany>> ListAsync()
