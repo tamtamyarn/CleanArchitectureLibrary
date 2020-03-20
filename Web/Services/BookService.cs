@@ -52,8 +52,6 @@ namespace Web.Services
 
         public async Task DeleteAsync(int id)
         {
-            //var publicshingCompany = await repository.GetAsync(id);
-            //await repository.DeleteAsync(publicshingCompany);
             var book = await repository.GetAsync(id);
             await repository.DeleteAsync(book);
         }
@@ -77,7 +75,6 @@ namespace Web.Services
             var book = await repository.GetAsync(id);
             book.PublishingCompany = await publishingCompanyRepository.GetAsync(bookInputModel.PublishingCompanyId);
 
-
             var authors = new List<Author>();
 
             foreach (var authorId in bookInputModel.AuthorIds)
@@ -91,6 +88,7 @@ namespace Web.Services
             {
                 authorsLink.Add(new BookAuthor() { Book = book, Author = author });
             }
+            
 
             book.AuthorsLink = authorsLink;
 
