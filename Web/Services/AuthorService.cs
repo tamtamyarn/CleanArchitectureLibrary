@@ -30,6 +30,12 @@ namespace Web.Services
             return authorViewModel;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var author = await repository.GetAsync(id);
+            await repository.DeleteAsync(author);
+        }
+
         public async Task<AuthorViewModel> GetAsync(int id)
         {
             var author = await repository.GetAsync(id);
@@ -42,6 +48,13 @@ namespace Web.Services
             var authors = await repository.ListAsync();
             var authorsViewModel = mapper.Map<List<AuthorViewModel>>(authors);
             return authorsViewModel;
+        }
+
+        public async Task UpdateAsync(int id, AuthorInputModel authorInputModel)
+        {
+            var author = mapper.Map<Author>(authorInputModel);
+            author.AuthorId = id;
+            await repository.UpdateAsync(author);
         }
     }
 }

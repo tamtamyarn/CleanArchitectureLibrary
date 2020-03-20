@@ -11,5 +11,7 @@ namespace Core.Interfaces
         Task<Author> GetAsync(int id);
         Task<List<Author>> ListAsync();
         Task<Author> AddAsync(Author author);
+        Task UpdateAsync(Author author);
+        Task DeleteAsync(Author author);
     }
 }

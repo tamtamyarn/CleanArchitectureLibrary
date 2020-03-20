@@ -12,5 +12,7 @@ namespace Web.Interfaces
         Task<AuthorViewModel> GetAsync(int id);
         Task<List<AuthorViewModel>> ListAsync();
         Task<AuthorViewModel> AddAsync(AuthorInputModel authorInputModel);
+        Task UpdateAsync(int id, AuthorInputModel authorInputModel);
+        Task DeleteAsync(int id);
     }
 }

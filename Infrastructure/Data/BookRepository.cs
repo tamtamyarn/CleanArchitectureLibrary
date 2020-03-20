@@ -33,6 +33,7 @@ namespace Infrastructure.Data
         public async Task<Book> GetAsync(int id)
         {
             return await context.Books
+                .AsNoTracking()
                 .Include(b => b.PublishingCompany)
                 .Include(b => b.AuthorsLink).ThenInclude(b => b.Author)
                 .SingleOrDefaultAsync(b => b.BookId == id);
@@ -41,6 +42,7 @@ namespace Infrastructure.Data
         public async Task<List<Book>> ListAsync()
         {
             return await context.Books
+                .AsNoTracking()
                 .Include(b => b.PublishingCompany)
                 .Include(b => b.AuthorsLink).ThenInclude(b => b.Author)
                 .ToListAsync();

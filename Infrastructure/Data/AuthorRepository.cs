@@ -24,14 +24,26 @@ namespace Infrastructure.Data
             return author;
         }
 
+        public async Task DeleteAsync(Author author)
+        {
+            context.Remove(author);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<Author> GetAsync(int id)
         {
-            return await context.Authors.FindAsync(id);
+            return await context.Authors.AsNoTracking().SingleOrDefaultAsync(a => a.AuthorId == id);
         }
 
         public async Task<List<Author>> ListAsync()
         {
-            return await context.Authors.ToListAsync();
+            return await context.Authors.AsNoTracking().ToListAsync();
+        }
+
+        public async Task UpdateAsync(Author author)
+        {
+            context.Authors.Update(author);
+            await context.SaveChangesAsync();
         }
     }
 }
